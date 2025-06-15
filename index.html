@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Click Counter</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; padding: 2em; }
+  #clickButton { font-size: 2em; padding: 1em 2em; }
+</style>
+</head>
+<body>
+  <h1>Click Counter</h1>
+  <label for="duration">Select duration:</label>
+  <select id="duration">
+    <option value="5">5 seconds</option>
+    <option value="10">10 seconds</option>
+    <option value="30">30 seconds</option>
+    <option value="60">60 seconds</option>
+  </select>
+  <button id="startButton">Start</button>
+  <div id="counterDisplay" style="margin-top: 1em;">Clicks: 0</div>
+  <button id="clickButton" disabled>Click me!</button>
+  <script>
+    const startButton = document.getElementById('startButton');
+    const clickButton = document.getElementById('clickButton');
+    const durationSelect = document.getElementById('duration');
+    const counterDisplay = document.getElementById('counterDisplay');
+
+    let count = 0;
+    let timer = null;
+
+    startButton.addEventListener('click', () => {
+        if (timer !== null) {
+            clearTimeout(timer);
+        }
+        count = 0;
+        counterDisplay.textContent = 'Clicks: 0';
+        clickButton.disabled = false;
+
+        const time = parseInt(durationSelect.value, 10) * 1000;
+        timer = setTimeout(() => {
+            clickButton.disabled = true;
+            alert('Time\'s up! You clicked ' + count + ' times.');
+        }, time);
+    });
+
+    clickButton.addEventListener('click', () => {
+        count++;
+        counterDisplay.textContent = 'Clicks: ' + count;
+    });
+  </script>
+</body>
+</html>
